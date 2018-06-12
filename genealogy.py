@@ -10,7 +10,10 @@ with sqlite3.connect('genealogy.db') as conn:
         print(e)
 
     cursor = conn.cursor()
+    cursor.row_factory = sqlite3.Row
     cursor.execute('select * from family')
 
     for row in cursor:
-        print(row)
+        for key in row.keys():
+            print(key, row[key], sep=':', end=' ')
+        print()
